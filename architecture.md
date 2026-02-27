@@ -20,7 +20,7 @@ graph TD
     Agent <-- "MCP Protocol" --> LIN_MCP
     
     GH_MCP -. "GitHub REST API<br>(Github Token)" .-> GitHub[("GitHub Repository")]
-    LIN_MCP -. "Linear GraphQL API<br>(Personal API Key)" .-> Linear[("Linear Workspace")]
+    LIN_MCP -. "Linear REST API<br>(Linear API Key)" .-> Linear[("Linear Workspace")]
     
     classDef runtime fill:#BBDEFB,stroke:#0D47A1,stroke-width:2px;
     classDef mcp fill:#E1BEE7,stroke:#4A148C,stroke-width:2px;
