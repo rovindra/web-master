@@ -1,25 +1,21 @@
-const express = require('express');
-const app = express();
-app.use(express.json());
-
-const tasks = [
-    { id: 1, user: 'Alma', task: 'Review Cloud Architecture', private: true },
-    { id: 2, user: 'Admin', task: 'Secret Database Credentials', private: true },
-    { id: 3, user: 'Anthony', task: 'Submit Audit Evidence', private: true }
-];
-
-// BUG 1 (Security - IDOR): There is no check if the requester owns the task!
-// Anyone can change the ID in the URL to see the Admin's secret credentials.
+// FIX 1: Added Ownership Check
 app.get('/api/tasks/:id', (req, res) => {
     const task = tasks.find(t => t.id === parseInt(req.params.id));
+    const currentUser = "Alma"; // Simulated auth
+
+    if (!task) return res.status(404).send("Not found");
+    
+    // Security Fix: Only allow users to see their own tasks
+    if (task.user !== currentUser) {
+        return res.status(403).send("Access Denied: You do not own this task.");
+    }
     res.json(task);
 });
 
-// BUG 2 (Performance): This endpoint "leaks" memory by growing an array on every call.
+// FIX 2: Capped Log Size to prevent Memory Leak
 let requestLogs = [];
 app.get('/api/status', (req, res) => {
-    requestLogs.push({ time: new Date(), info: req.headers }); // Grows forever!
+    requestLogs.push({ time: new Date() });
+    if (requestLogs.length > 100) requestLogs.shift(); // Keep only last 100
     res.send("System Operational");
 });
-
-app.listen(3000, () => console.log('Vulnerable App running on port 3000'));
