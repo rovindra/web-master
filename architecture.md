@@ -5,22 +5,22 @@ The following diagram illustrates the communication flow of our cross-platform t
 ```mermaid
 graph TD
     User(["Developer User"]) <--> UI["ADK Web Interface"]
-    UI <--> Agent{"Triage Agent\n(Gemini 3.0 Flash)"}
+    UI <--> Agent{"Triage Agent<br>(Gemini 3.0 Flash)"}
     
     subgraph Local Runtime
         Agent
     end
     
     subgraph External MCP Interface
-        GH_MCP["GitHub Remote MCP Server\n(Read-Only headers)"]
-        LIN_MCP["Linear MCP Server\n(Filtered Tools config)"]
+        GH_MCP["GitHub Remote MCP Server<br>(Read-Only headers)"]
+        LIN_MCP["Linear MCP Server<br>(Filtered Tools config)"]
     end
     
-    Agent <-- "MCP Protocol\n(Streamable HTTP version 2024-11-25)" --> GH_MCP
-    Agent <-- "MCP Protocol\n(Streamable HTTP version 2024-11-25)" --> LIN_MCP
+    Agent <-- "MCP Protocol<br>(Streamable HTTP version 2024-11-25)" --> GH_MCP
+    Agent <-- "MCP Protocol<br>(Streamable HTTP version 2024-11-25)" --> LIN_MCP
     
-    GH_MCP -. "GitHub REST API\n(OAuth Token)" .-> GitHub[("GitHub Repository")]
-    LIN_MCP -. "Linear GraphQL API\n(Personal API Key)" .-> Linear[("Linear Workspace")]
+    GH_MCP -. "GitHub REST API<br>(OAuth Token)" .-> GitHub[("GitHub Repository")]
+    LIN_MCP -. "Linear GraphQL API<br>(Personal API Key)" .-> Linear[("Linear Workspace")]
     
     classDef runtime fill:#BBDEFB,stroke:#0D47A1,stroke-width:2px;
     classDef mcp fill:#E1BEE7,stroke:#4A148C,stroke-width:2px;
