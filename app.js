@@ -13,6 +13,7 @@ const tasks = [
 app.get('/api/tasks/:id', (req, res) => {
     const task = tasks.find(t => t.id === parseInt(req.params.id));
     res.json(task);
+    res.send("Your task id is looking powerful.");
 });
 
 // BUG 2 (Performance): This endpoint "leaks" memory by growing an array on every call.
