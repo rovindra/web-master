@@ -16,10 +16,10 @@ graph TD
         LIN_MCP["Linear MCP Server<br>(Filtered Tools config)"]
     end
     
-    Agent <-- "MCP Protocol<br>(Streamable HTTP version 2024-11-25)" --> GH_MCP
-    Agent <-- "MCP Protocol<br>(Streamable HTTP version 2024-11-25)" --> LIN_MCP
+    Agent <-- "MCP Protocol" --> GH_MCP
+    Agent <-- "MCP Protocol" --> LIN_MCP
     
-    GH_MCP -. "GitHub REST API<br>(OAuth Token)" .-> GitHub[("GitHub Repository")]
+    GH_MCP -. "GitHub REST API<br>(Github Token)" .-> GitHub[("GitHub Repository")]
     LIN_MCP -. "Linear GraphQL API<br>(Personal API Key)" .-> Linear[("Linear Workspace")]
     
     classDef runtime fill:#BBDEFB,stroke:#0D47A1,stroke-width:2px;
